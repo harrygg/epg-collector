@@ -97,10 +97,10 @@ def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = 512):
         n += 1
         
         try: 
-          log("Added channel %s, removed from further search" % channelName)
           ids.remove(channelName) #remove id so it is skipped when checking the next file
+          log("Added channel %s, removed from further search" % channelName)
         except Exception, er:
-          log(er)
+          log(channelName + " " + str(er))
     
     #log("idsMap %s" % len(idsMap))
     #print idsMap
