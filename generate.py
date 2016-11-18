@@ -7,7 +7,7 @@ from helper import *
 
 ### OPTIONS
 SHORTEN_DESC = 512             # Set False to disable
-OUTPUT_XML = 'alltv-guide.xml' # Output XML name
+OUTPUT_XML = 'epg.xml' # Output XML name
 errors = 0
 
 ### URLs and output files
