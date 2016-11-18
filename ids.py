@@ -3,10 +3,10 @@
 ids = [
 ##my-epg
 "HBO",
-"HBO2",
-"HBO3",
+"HBO 2",
+"HBO 3",
 "Cinemax",
-"Cinemax2",
+"Cinemax 2",
 ##BG EPG
 "24kitchen",
 "359TV",

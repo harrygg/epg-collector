@@ -61,7 +61,7 @@ try:
   log("\n### Parsing started for %s files!" % len(epgFiles))
   n = 0
   for f in epgFiles:
-    if 'russian' in f: #Get ids from <channel-name> tag in XMLTV
+    if 'russian' in f or 'my' in f: #Get ids from <channel-name> tag in XMLTV
       d = parse(f, True) 
     else:
       d = parse(f)
