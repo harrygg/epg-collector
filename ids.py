@@ -1,6 +1,13 @@
 # -*- coding: utf8 -*-
 
 ids = [
+##my-epg
+"HBO",
+"HBO2",
+"HBO3",
+"Cinemax",
+"Cinemax2",
+##BG EPG
 "24kitchen",
 "359TV",
 "amc",
@@ -35,8 +42,6 @@ ids = [
 "BrazzersTVEurope",
 "CartoonNetwork",
 "City",
-"Cinemax",
-"Cinemax2",
 "CNN",
 "Euronews",
 "ChernoMore",
@@ -90,9 +95,6 @@ ids = [
 "HobbyTV",
 "HobbyTVHD",
 "HobbyLovHD",
-"HBOHD",
-"HBOComedy",
-"HBO3",
 "HustlerTV",
 "HitMix",
 "HMTV",
