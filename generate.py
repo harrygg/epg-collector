@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
-import os
+import os, sys
 import xml.etree.ElementTree as ET
 from ids import *
 from helper import *
@@ -10,13 +10,15 @@ SHORTEN_DESC = 512             # Set False to disable
 OUTPUT_XML = 'epg.xml' # Output XML name
 errors = 0
 xmlName = False
+forced = len(sys.argv) > 1 and sys.argv[1] == "-f"
+
 ### URLs and output files
+#{"url":"https://dl.dropboxusercontent.com/s/xg6c7av61p1jdoq/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
 epgs = [
   {"url":"http://sov02lr02.eu.hpecorp.net/epg.xml", "outFile": "my-guide.xml"},
-  #{"url":"http://epg.tvsat.co/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
-  #{"url":"https://dl.dropboxusercontent.com/s/xg6c7av61p1jdoq/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
-  #{"url":"http://www.teleguide.info/download/new3/xmltv.xml.gz", "outFile":"russian-guide.xml.gz"},
-  #{"url":"http://epg.serbianforum.org/epg.xml.gz", "outFile":"serbian-guide.xml.gz"},
+  {"url":"http://epg.tvsat.co/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
+  {"url":"http://www.teleguide.info/download/new3/xmltv.xml.gz", "outFile":"russian-guide.xml.gz"},
+  {"url":"http://epg.serbianforum.org/epg.xml.gz", "outFile":"serbian-guide.xml.gz"},
 ]
 
 epgFiles = []
@@ -26,24 +28,26 @@ log("#############################\nEPG COLLECTOR\n#########################")
 
 try:
   # Download EPGs
+  log("Forced download = %s" % forced)
   for e in epgs:
     out_file_name = e["outFile"]
     ## Is file old enough
-    if isExpired(out_file_name):
+    if isExpired(out_file_name) or forced:
       download(e["url"], out_file_name)
     else:
       log("%s is new, download skipped!" % out_file_name)
-      ## If file is zipped, extract and get extracted's file name
-      if 'gz' in out_file_name:
-        xmlName = extract(out_file_name)
-      else:
-        xmlName = out_file_name
+    
+    ## If file is zipped, extract and get extracted's file name
+    if 'gz' in out_file_name:
+      xmlName = extract(out_file_name)
+    else:
+      xmlName = out_file_name
     ##False if there was error
     if xmlName:
-      log("Adding %s to epgFiles[]" % xmlName)
+      log("  Adding %s to epgFiles[]" % xmlName)
       epgFiles.append(xmlName)
     else: 
-      log("Trying re-download")
+      log("  Trying re-download")
       download(e["url"], out_file_name) #If there is an error during extract, file maybe corrupted so try re-downloading the file
       ## If file is zipped, extract and get extracted's file name
       if '.gz' in out_file_name:
@@ -65,12 +69,14 @@ try:
       d = parse(f, True) 
     else:
       d = parse(f)
-    log("Extracted %s channels" % d)
+    log("------------------------------")
+    log("  Extracted %s channels" % d)
+    log("------------------------------")
     n += d
   
   #zip epg file
-  log("Zipping XML file to %s" % OUTPUT_XML + ".gz")
-  zip(OUTPUT_XML, OUTPUT_XML + ".gz")
+  #log("Zipping XML file to %s" % OUTPUT_XML + ".gz")
+  #zip(OUTPUT_XML, OUTPUT_XML + ".gz")
   
 except KeyboardInterrupt:
   log('EPG generation interrupted by user!')

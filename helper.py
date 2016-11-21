@@ -19,7 +19,7 @@ xmltv.append(ET.Comment('Automatically generated for Kodibg.org. Used EPGs from 
 def extract(inFile):
   try:
     outFile = inFile.replace('.gz', '')
-    log("Extracting file %s to %s" % (inFile, outFile))
+    log("  Extracting file %s to %s" % (inFile, outFile))
     gz = gzip.GzipFile(inFile, 'rb')
     s = gz.read()
     gz.close()
@@ -27,7 +27,7 @@ def extract(inFile):
       out.write(s)
     return outFile
   except Exception, er:
-    log(er)
+    log("    %s" % er)
     return False
 
 def zip(inFile, outFile):
@@ -36,9 +36,9 @@ def zip(inFile, outFile):
 
 def download(epgUrl, outFile):
   try:
-    log("Downloading EPG from URL %s" % (epgUrl))
+    log("  Downloading EPG from URL %s" % (epgUrl))
     response = urllib2.urlopen(epgUrl)
-    log("Server returned %s" % response.getcode())
+    log("  Server returned %s" % response.getcode())
     with open(outFile, "wb") as c:
       c.write(response.read())
   except Exception, er:
@@ -64,9 +64,9 @@ def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = 512):
   local_n = n
   _ids = ids[:] #copy by value not by reference
   tree = ET.parse(fileName)
-  log('Parsing file: %s' % fileName)
+  log('  Parsing file: %s' % fileName)
   if not os.path.isfile(fileName): 
-    log("Input file not found %s " % fileName)
+    log("    Input file not found %s " % fileName)
     return 0
   w = open(fileName.replace('.xml', '-names.txt'), 'w')
   idsMap = {}
@@ -98,9 +98,9 @@ def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = 512):
         
         try: 
           ids.remove(channelName) #remove id so it is skipped when checking the next file
-          log("Added channel %s, removed from further search" % channelName)
+          #log("Added channel %s, removed from further search" % channelName)
         except Exception, er:
-          log(channelName + " " + str(er))
+          log("  %s %s" % (channelName, er))
     
     #log("idsMap %s" % len(idsMap))
     #print idsMap
