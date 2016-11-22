@@ -6,7 +6,7 @@ from ids import *
 from helper import *
 
 ### OPTIONS
-SHORTEN_DESC = 512             # Set False to disable
+SHORTEN_DESC = False#512             # Set False to disable
 OUTPUT_XML = 'epg.xml' # Output XML name
 errors = 0
 xmlName = False
@@ -15,7 +15,7 @@ forced = len(sys.argv) > 1 and sys.argv[1] == "-f"
 ### URLs and output files
 #{"url":"https://dl.dropboxusercontent.com/s/xg6c7av61p1jdoq/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
 epgs = [
-  {"url":"http://sov02lr02.eu.hpecorp.net/epg.xml", "outFile": "my-guide.xml"},
+  {"url":"http://sov02lr02.eu.hpecorp.net/guides/movies/rex/epg.xml", "outFile": "my-guide.xml"},
   {"url":"http://epg.tvsat.co/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
   {"url":"http://www.teleguide.info/download/new3/xmltv.xml.gz", "outFile":"russian-guide.xml.gz"},
   {"url":"http://epg.serbianforum.org/epg.xml.gz", "outFile":"serbian-guide.xml.gz"},

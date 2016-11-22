@@ -59,7 +59,7 @@ def isExpired(file):
     log(er)
     return True
   
-def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = 512):
+def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = False):
   global n, ids, root
   local_n = n
   _ids = ids[:] #copy by value not by reference
