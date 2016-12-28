@@ -76,7 +76,7 @@ def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = False):
       id = elem.attrib["id"].encode('utf-8')
       channelName = elem.find('display-name').text.encode('utf-8')
       if idsFromChannelName: #Create a list of IDs matching the channel names
-        #log("id %s" % id)
+        #log("id %s %s" % (n, id))
         idsMap[id] = channelName
         #log(idsMap[id])
         id = channelName
@@ -101,6 +101,8 @@ def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = False):
           #log("Added channel %s, removed from further search" % channelName)
         except Exception, er:
           log("  %s %s" % (channelName, er))
+      else:
+        log("%s not in _ids" % id)
     
     #log("idsMap %s" % len(idsMap))
     #print idsMap
