@@ -5,6 +5,7 @@ import xml.etree.ElementTree as ET
 from ids import *
 from helper import *
 
+log("ENVIRONMENT: %s" % os.environ)
 ### OPTIONS
 SHORTEN_DESC = False#512             # Set False to disable
 OUTPUT_XML = 'epg.xml' # Output XML name
@@ -15,8 +16,12 @@ forced = len(sys.argv) > 1 and sys.argv[1] == "-f"
 ### URLs and output files
 #{"url":"https://dl.dropboxusercontent.com/s/xg6c7av61p1jdoq/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
 epgs = [
+  {"url":"http://sov02lr02.eu.hpecorp.net/guides/bulgarian/epg.xml", "outFile": "my-bg-guide.xml"},
   {"url":"http://sov02lr02.eu.hpecorp.net/guides/movies/rex/epg.xml", "outFile": "my-guide.xml"},
+  {"url":"http://sov02lr02.eu.hpecorp.net/guides/sports/epg.xml", "outFile": "my-sports-guide.xml"},
+  {"url":"http://sov02lr02.eu.hpecorp.net/guides/deutsch/epg.xml", "outFile": "my-deutsch-guide.xml"},
   {"url":"http://epg.tvsat.co/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
+  {"url":"http://doubledmusic.eu/tivibg/guide.xml", "outFile":"bulgarian-guide2.xml"},
   {"url":"http://www.teleguide.info/download/new3/xmltv.xml.gz", "outFile":"russian-guide.xml.gz"},
   {"url":"http://epg.serbianforum.org/epg.xml.gz", "outFile":"serbian-guide.xml.gz"},
 ]
