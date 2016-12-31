@@ -3,3 +3,6 @@
 *.txt
 *.xml
 *.gz
+output_validation.json
+*.save
+validate.py
