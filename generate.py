@@ -20,6 +20,7 @@ epgs = [
   {"url":"http://sov02lr02.eu.hpecorp.net/guides/movies/rex/epg.xml", "outFile": "my-guide.xml"},
   {"url":"http://sov02lr02.eu.hpecorp.net/guides/sports/epg.xml", "outFile": "my-sports-guide.xml"},
   {"url":"http://sov02lr02.eu.hpecorp.net/guides/deutsch/epg.xml", "outFile": "my-deutsch-guide.xml"},
+  {"url":"http://sov02lr02.eu.hpecorp.net/guides/uk/epg.xml", "outFile": "my-uk-guide.xml"},
   {"url":"http://epg.tvsat.co/epg.xml.gz", "outFile":"bulgarian-guide.xml.gz"},
   {"url":"http://doubledmusic.eu/tivibg/guide.xml", "outFile":"bulgarian-guide2.xml"},
   {"url":"http://www.teleguide.info/download/new3/xmltv.xml.gz", "outFile":"russian-guide.xml.gz"},
