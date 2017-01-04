@@ -97,10 +97,11 @@ tree.write(OUTPUT_XML, encoding="UTF-8", xml_declaration=True)
 
 file_info = os.stat(OUTPUT_XML)
 log("%s channels saved in file %s (%s)" % (n, OUTPUT_XML, convert_bytes(file_info.st_size)))
-logFile.close()
 
-log("------------------------------")
-hash = hashlib.md5(open(OUTPUT_XML, 'rb').read()).hexdigest()
-log("  Generated MD5 checksum %s saved in checksum.txt" % hash)
-with open('checksum.txt', 'w') as w:
-  w.write(hash)
+#log("------------------------------")
+#hash = hashlib.md5(open(OUTPUT_XML, 'rb').read()).hexdigest()
+#log("  Generated MD5 checksum %s saved in checksum.txt" % hash)
+#with open('checksum.txt', 'w') as w:
+#  w.write(hash)
+
+logFile.close()

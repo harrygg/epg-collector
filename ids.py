@@ -332,7 +332,8 @@ ids = [
 "Sci-FiTelly",
 "AlienInvasion",
 "FilmboxArthouseHD",
-"360TuneBoxHD"NTV-Public",
+"360TuneBoxHD"
+"NTV-Public",
 "NTV-Education",
 "NTV-Media",
 "Russia Today Documentary",

@@ -101,8 +101,8 @@ def parse(fileName, idsFromChannelName = False, SHORTEN_DESC = False):
           #log("Added channel %s, removed from further search" % channelName)
         except Exception, er:
           log("  %s %s" % (channelName, er))
-      else:
-        log("%s not in _ids" % id)
+      #else:
+      #  log("%s not in _ids" % id)
     
     #log("idsMap %s" % len(idsMap))
     #print idsMap
