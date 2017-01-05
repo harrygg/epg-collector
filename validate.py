@@ -16,13 +16,14 @@ channel_ids = []
 
 for elem in tree.iter():
   if elem.tag == 'channel':
-    id = elem.attrib["id"].encode('utf-8')
-    ids.append(id.decode('utf-8'))
+    id = elem.attrib["id"].decode('utf-8')
+    print id
+    ids.append(id)
     channel_ids.append(id.decode('utf-8'))
 
   if elem.tag == 'programme':
-    cid = elem.attrib["channel"].encode('utf-8')
-    try: ids.remove(cid.encode('utf-8'))
+    cid = elem.attrib["channel"]
+    try: ids.remove(cid)
     except: pass
 
 f_output = os.path.join(path, 'validation.json')
