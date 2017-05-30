@@ -44,15 +44,20 @@ for channel in channels:
     ### Iteratate days - 7
     for i in range(0, len(epg_data_days)):
   
-      day_str = date.strftime('%Y%m')
-      day_str += epg_data_days[i].find("p", "text-large").get_text().split("/")[0]
+      y = date.strftime('%Y')
+      m = int(epg_data_days[i].find("p", "text-large").get_text().split("/")[1])
+      d = int(epg_data_days[i].find("p", "text-large").get_text().split("/")[0])
+      datetime_str = "%s%02d%02d" % (y,m,d,) 
       
       # Add only datetime tag during first 7 days
       if len(days)  < len(epg_data_days):
-        days.append({"datetime":day_str, "shows":[]})
+        days.append({"datetime":datetime_str, "shows":[]})
       
       print "Scrabbing day %s" % i
       epg_daily_programs = epg_data_days[i].find_all(class_="epg-data-cell")
+      if len(epg_daily_programs) == 0:
+        print "No elements with class 'epg-data-cell' found"
+        continue
       
       for epg_program in epg_daily_programs:        
         ### Get show start time
