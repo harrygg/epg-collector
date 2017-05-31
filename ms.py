@@ -14,24 +14,26 @@ from helper import *
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-MAXDAYS = 3
+STARTDAY = 3 #start capturing 3 days ahead
+MAXDAYS = 1
+results_folder = "moviestar"
 host = base64.b64decode("aHR0cDovL21vdmllc3Rhci5iZy8=")
 headers = {"User-agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36" , "Referer": host}
 url_template = "%s?rhc_action=get_calendar_events&post_type[]=events&start=%s&end=%s&rhc_shrink=0&view=agendaDay"
 
 ### Calculate dates for for scrabbing days
-dates = {"days":[], "datetimes":[], "epochtimes":[]}
+dates = {"datetimes":[], "epochtimes":[]}
 now = datetime.datetime.now()
 end = MAXDAYS + 1 # get an extra day epoch time as a limit for previous day
 for i in range(0, end): 
-  current_day = now + datetime.timedelta(days=i)
-  dates["days"].append(current_day.strftime('%d'))
+  offset = STARTDAY+i
+  current_day = now + datetime.timedelta(days=offset)
   dates["datetimes"].append(current_day.strftime('%Y%m%d'))
   #add epoch time i.e. 1496213915
   dates["epochtimes"].append(str(time.mktime(current_day.timetuple()))[:10])
 
-if not os.path.exists("moviestar"):
-  os.makedirs("moviestar")
+if not os.path.exists(results_folder):
+  os.makedirs(results_folder)
     
 ### Iterate days
 for i in range(0, MAXDAYS):
@@ -40,7 +42,7 @@ for i in range(0, MAXDAYS):
   r = requests.get(url, headers=headers)
   print "Server response: %s " % r.status_code
 
-  file_name = "moviestar/%s.json" % dates["days"][i]
+  file_name = "%s/%s.json" % (results_folder, dates["datetimes"][i][6:])
   with open(file_name, "w") as f:
     f.write(r.text[3:].encode("utf-8"))
 
