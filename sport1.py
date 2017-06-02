@@ -55,13 +55,13 @@ for channel in channels:
           ############
           ### Title
           ############
-          title = normalize(div.find("span", class_="title").renderContents())
+          title = div.find("span", class_="title").renderContents()
           
           ### Crete the program object only after we have time and title
           program = Program(time, title)
           
           try: 
-            program.subtitle = normalize(div.find("div", class_="epgSubtitle").get_text())
+            program.subtitle = div.find("div", class_="epgSubtitle").get_text()
           except: pass
           
           ###############
