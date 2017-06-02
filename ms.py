@@ -14,38 +14,27 @@ from helper import *
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+DEBUG = False
 STARTDAY = 3 #start capturing 3 days ahead
 MAXDAYS = 1
-results_folder = "moviestar"
+channel = "moviestar"
 host = base64.b64decode("aHR0cDovL21vdmllc3Rhci5iZy8=")
 headers = {"User-agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36" , "Referer": host}
 url_template = "%s?rhc_action=get_calendar_events&post_type[]=events&start=%s&end=%s&rhc_shrink=0&view=agendaDay"
 
 ### Calculate dates for for scrabbing days
-dates = {"datetimes":[], "epochtimes":[]}
-now = datetime.datetime.now()
-end = MAXDAYS + 1 # get an extra day epoch time as a limit for previous day
-for i in range(0, end): 
-  offset = STARTDAY+i
-  current_day = now + datetime.timedelta(days=offset)
-  dates["datetimes"].append(current_day.strftime('%Y%m%d'))
-  #add epoch time i.e. 1496213915
-  dates["epochtimes"].append(str(time.mktime(current_day.timetuple()))[:10])
+dates = get_dates(MAXDAYS, STARTDAY)
 
-if not os.path.exists(results_folder):
-  os.makedirs(results_folder)
-    
 ### Iterate days
 for i in range(0, MAXDAYS):
-  url = url_template % (host, dates["epochtimes"][i], dates["epochtimes"][i+1])
-  print "Getting url: %s " % url
-  r = requests.get(url, headers=headers)
-  print "Server response: %s " % r.status_code
+  url = url_template % (host, dates[i].epochtime, dates[i+1].epochtime)
+  text = get_content(url, headers)
 
-  file_name = "%s/%s.json" % (results_folder, dates["datetimes"][i][6:])
+  file_name = get_file_name(channel, dates[i].day)
+  # Save full content and convert to json
   with open(file_name, "w") as f:
-    f.write(r.text[3:].encode("utf-8"))
-
+    f.write(text[3:].encode('utf8'))
+  # load json
   items = json.load(codecs.open(file_name, 'r', 'utf-8-sig'))
   
   programs = []
@@ -54,30 +43,21 @@ for i in range(0, MAXDAYS):
   for item in items["EVENTS"]:
     rdates = item["fc_rdate"].split(",")
     for rdate in rdates:
-      if dates["datetimes"][i] in rdate:
+      if dates[i].datetime in rdate:
         
         title = normalize(item["title"])        
         starttime = rdate[9:11]+":"+rdate[11:13]
         program = Program(starttime, title)
         
         program.url = item["url"]
-        program.datetime = rdate.replace("T", "")
         programs.append(program)
   
-  print "Sorting"
-  programs_sorted = sorted(programs, key=lambda p: p.datetime, reverse=False)
-  
-  debug = True
-  if not debug:
+  if True:
     print "Searching for movie details"
-    programs = []
-    for program in programs_sorted:
+    for program in programs:
       try:
-        print "Requesting %s " % program.url
-        r = requests.get(program.url, headers=headers)
-        print "Response code %s" % r.status_code
-        text = r.text.encode("utf-8")
-    
+        text = get_content(program.url, headers)
+        
         m = re.compile("og:description\"\s+content=\"(.*?)\"\s*/>").findall(text)
         if len(m) > 1:
           program.description = m[1]
@@ -118,9 +98,6 @@ for i in range(0, MAXDAYS):
       except Exception as er:
         print str(er)
       
-      del program.datetime
-      programs.append(program.__dict__)
+      del program.url
   
-  if not debug:
-    with open(file_name, "w") as f:
-      f.write(pretty_json(programs))
+    write_file(file_name, programs)
