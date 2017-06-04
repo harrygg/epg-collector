@@ -14,7 +14,7 @@ DEBUG = False
 STARTDAY = 0 #start capturing 3 days ahead
 MAXDAYS = 3
 dates = get_dates(MAXDAYS, STARTDAY)
-channels = ["sport1tv", "sport1us", "sport1plus"]
+channels = ["sport1plus", "sport1us", "sport1tv"]
 last_show_time = "" #hold the times so that we can check for duplicates
 
 for channel in channels:
@@ -55,13 +55,13 @@ for channel in channels:
           ############
           ### Title
           ############
-          title = div.find("span", class_="title").renderContents()
+          title = normalize(div.find("span", class_="title").renderContents())
           
           ### Crete the program object only after we have time and title
           program = Program(time, title)
           
           try: 
-            program.subtitle = div.find("div", class_="epgSubtitle").get_text()
+            program.subtitle = normalize(div.find("div", class_="epgSubtitle").get_text())
           except: pass
           
           ###############

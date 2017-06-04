@@ -45,7 +45,7 @@ for i in range(0, MAXDAYS):
     for rdate in rdates:
       if dates[i].datetime in rdate:
         
-        title = normalize(item["title"])        
+        title = normalize(item["title"]) .capitalize()       
         starttime = rdate[9:11]+":"+rdate[11:13]
         program = Program(starttime, title)
         

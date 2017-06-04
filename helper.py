@@ -5,16 +5,20 @@ import time
 import os
 from bs4 import BeautifulSoup
 
-
 def normalize(txt):
-  return txt.lstrip().rstrip().replace("\"", "\\\"").capitalize()
+  return txt.lstrip().rstrip().replace("\"", "\\\"")
   
 def pretty_json(programs):
   converted = [p.__dict__ for p in programs]
   print "Sorting"
   programs_sorted = sorted(converted, key=lambda p: p["starttime"], reverse=False)
   return json.dumps(programs_sorted,indent=2, separators=(',', ': ')).decode('unicode-escape').encode('utf8')
-  
+
+def append_hours(hour, n):
+  hour = datetime.strptime(hour, "%H")
+  hour += timedelta(hours=n)
+  return str(hour)
+
 def log(msg):
   print "### %s" % msg
   logFile.write("%s\n" % msg)
