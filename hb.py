@@ -14,7 +14,7 @@ sys.setdefaultencoding('utf8')
 date = datetime.date.today()
 day = int(date.strftime('%d'))
 channels = ["history", "crime-investigation"]#, "h2"]
-hours = ["00", "02", "04", "06", "08", "10", "12", "14", "16", "18", "20", "22"]
+hours = ["00", "02", "04", "06", "08", "10", "12", "14", "16", "18", "20", "22"]#
 
 headers = {"User-agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"}
 url_template = "http://www.historytvbulgaria.com/bg/%s-bg?epgnav=%s&epgweekview=1"
@@ -102,21 +102,13 @@ for channel in channels:
           pass
         
         ### Append current day program to days list if it's not already added
-        if not any(show["starttime"] == program.starttime for show in days[i]["shows"]):
+        if not any(show.starttime == program.starttime for show in days[i]["shows"]):
           print "Appending program to day %s" % (day + i)
-          days[i]["shows"].append(program.__dict__)
+          days[i]["shows"].append(program)
         else:
           print "Program is a duplicate skipping it"
-
-  print days
-  ### Save weekly program
-  if not os.path.exists(channel):
-    os.makedirs(channel)
   
-  with open("%s/weekly.json" % channel, "w") as f:
-    f.write(json.dumps(days,indent=2, separators=(',', ': ')).decode('unicode-escape').encode('utf8'))
-
   ### Save daily programs   
   for d in days:
-    with open("%s/%s.json" % (channel, d["datetime"][6:8]), "w") as f:
-      f.write(pretty_json(d))
+    file_name = get_file_name(channel, d["datetime"][6:8])
+    write_file(file_name, d["shows"])
