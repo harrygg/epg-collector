@@ -14,7 +14,7 @@ sys.setdefaultencoding('utf8')
 date = datetime.date.today()
 day = int(date.strftime('%d'))
 channels = ["history", "crime-investigation"]#, "h2"]
-hours = ["00", "02"]#, "04", "06", "08", "10", "12", "14", "16", "18", "20", "22"]#
+hours = ["00", "02", "04", "06", "08", "10", "12", "14", "16", "18", "20", "22"]#
 
 headers = {"User-agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"}
 url_template = "http://www.historytvbulgaria.com/bg/%s-bg?epgnav=%s&epgweekview=1"
