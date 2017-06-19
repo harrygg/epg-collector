@@ -14,15 +14,18 @@ sys.setdefaultencoding('utf8')
 date = datetime.date.today()
 day = int(date.strftime('%d'))
 channels = ["history", "crime-investigation"]#, "h2"]
-hours = ["00", "02", "04", "06", "08", "10", "12", "14", "16", "18", "20", "22"]#
+hours = ["00", "02"]#, "04", "06", "08", "10", "12", "14", "16", "18", "20", "22"]#
 
 headers = {"User-agent":"Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36"}
 url_template = "http://www.historytvbulgaria.com/bg/%s-bg?epgnav=%s&epgweekview=1"
 
-days = []#{"datetime":None, "shows":list()}] * 7 #Create an empty list with 7 elements
+
 #print days
 
 for channel in channels:
+  #create the list that will contain dayly programs
+  days = []
+  #iterate at a 2 hours interval to get new shows
   for hour in hours:
     print "---------------------------------------------"
     date_str = "%s%s0000" % (date.strftime('%Y%m%d'), hour)
