@@ -41,9 +41,11 @@ for i in range(0, MAXDAYS):
     starttime = re.compile("(\d\d:\d\d):").findall(item["starttime"])[0]
     program = Program(starttime, title)
     try:
+      try: program.producer = item["dynamicclipdata"]["copyright"]
+      except: pass
       program.description = normalize(item["description"])
       program.icon = item["screenshot"]
-      program.year = item["jaar"]    
+      program.year = item["dynamicclipdata"]["jaar"]
     except Exception as er:
       print str(er)
     programs.append(program)

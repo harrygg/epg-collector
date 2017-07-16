@@ -77,6 +77,7 @@ class Program():
   category = ""
   icon = ""
   description = ""
+  producer = ""
   cast = ""
   director = ""
   year = ""
