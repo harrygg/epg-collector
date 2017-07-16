@@ -6,7 +6,7 @@ import os
 from bs4 import BeautifulSoup
 
 def normalize(txt):
-  return txt.lstrip().rstrip().replace("\"", "\\\"")
+  return txt.lstrip().rstrip().replace("\"", "\\\"").replace("\\n","")
   
 def pretty_json(programs):
   converted = [p.__dict__ for p in programs]
@@ -113,5 +113,6 @@ def get_dates(MAXDAYS=3, STARTDAY=0):
 class Date():
   def __init__(self, current_day):
       self.datetime = current_day.strftime('%Y%m%d')
+      self.datetime_hyphened = current_day.strftime('%Y-%m-%d')
       self.day = current_day.strftime('%d')
       self.epochtime = str(time.mktime(current_day.timetuple()))[:10]
