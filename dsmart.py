@@ -21,4 +21,6 @@ for channel in channels:
     text = get_content(url)
     name = channel["name"].lower().replace(" ", "")
     file_name = get_file_name(name, date.day)
-    write_file(file_name, programs)
+    print "Saving %s" % (file_name)
+    with open(file_name, "w") as w:
+      w.write(text)
