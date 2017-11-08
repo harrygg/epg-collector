@@ -74,9 +74,9 @@ def write_file(file_name, programs, isJson=True):
       f.write(pretty_json(programs))
     
 def write_index(dir):
-  print "Saving %sindex.html" % dir
+  print "Saving %s/index.php" % dir
   txt = "<?php\r\n$d = date(\"d\");\r\nheader(\"Location: $d.json\");"
-  with open(os.path.join(dir, "index.html"), "w") as w:
+  with open(os.path.join(dir, "index.php"), "w") as w:
     w.write(txt)
     
 class Program():
