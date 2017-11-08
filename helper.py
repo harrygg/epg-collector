@@ -63,11 +63,22 @@ def get_file_name(results_folder, day):
     os.makedirs(results_folder)
   return "%s/%s.json" % (results_folder, day)
 
-def write_file(file_name, programs):
-  print "Saving %s programs in %s" % (len(programs), file_name)
-  with open(file_name, "w") as f:
-    f.write(pretty_json(programs))
-
+def write_file(file_name, programs, isJson=True):
+  if isJson:
+    print "Saving %s programs in %s" % (len(programs), file_name)
+    with open(file_name, "w") as f:
+      f.write(pretty_json(programs))
+  else:
+    print "Saving content in %s" % (file_name)
+    with open(file_name, "w") as f:
+      f.write(pretty_json(programs))
+    
+def write_index(dir):
+  print "Saving %sindex.html" % dir
+  txt = "<?php\r\n$d = date(\"d\");\r\nheader(\"Location: $d.json\");"
+  with open(os.path.join(dir, "index.html"), "w") as w:
+    w.write(txt)
+    
 class Program():
   
   starttime = ""

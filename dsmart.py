@@ -19,9 +19,10 @@ for channel in channels:
   for date in dates:
     url = "https://www.dsmart.com.tr/actions/schedule?channel_id=%s&day=%s" % (channel["id"], date.datetime_hyphened)
     text = get_content(url)
-    name = channel["name"].lower().replace(" ", "")
-    file_name = get_file_name(name, date.day)
+    dir = channel["name"].lower().replace(" ", "")
+    file_name = get_file_name(dir, date.day)
     print "Saving %s" % (file_name)
     with open(file_name, "w") as w:
       w.write(text)
-      
+
+  write_index(dir)
