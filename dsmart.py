@@ -13,7 +13,16 @@ STARTDAY = 0 #start capturing 3 days ahead
 MAXDAYS = 3
 dates = get_dates(MAXDAYS, STARTDAY)
 #Semerkand, NR1 TV
-channels = [{"id":"58d29bb0eefad3db9c60627c", "name":"Semerkand"}, {"id": "58d29bb0eefad3db9c60623c", "name":"NR1 TV"}]
+channels = [
+  {"name": "Semerkand", "id":"58d29bb0eefad3db9c60627c"}, 
+  {"name": "NR1 TV", "id": "58d29bb0eefad3db9c60623c"},
+  {"name": "NR1 Turk", "id": "58d29bb0eefad3db9c6062c0"}, 
+  {"name": "Smart Cocuk", "id": "58d29bb0eefad3db9c6062b5"}, 
+  {"name": "Show TV", "id": "58d29bb0eefad3db9c60622c"}, 
+  {"name": "Star TV", "id": "58d29bb0eefad3db9c60622d"}, 
+  {"name": "Smart Sport", "id": "58d29bb0eefad3db9c60628a"}, 
+  {"name": "Smart Sport 2", "id": "58d29bb0eefad3db9c60628b"}
+]
 
 for channel in channels:
   for date in dates:
