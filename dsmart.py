@@ -13,11 +13,12 @@ STARTDAY = 0 #start capturing 3 days ahead
 MAXDAYS = 3
 dates = get_dates(MAXDAYS, STARTDAY)
 #Semerkand, NR1 TV
-channels = ["58d29bb0eefad3db9c60627c", "58d29bb0eefad3db9c60623c"]
+channels = [{"id":"58d29bb0eefad3db9c60627c", "name":"Semerkand"}, {"id": "58d29bb0eefad3db9c60623c", "name":"NR1 TV"}]
 
 for channel in channels:
   for date in dates:
-    url = "https://www.dsmart.com.tr/actions/schedule?channel_id=%s&day=%s" % (channel, date.datetime_hyphened)
+    url = "https://www.dsmart.com.tr/actions/schedule?channel_id=%s&day=%s" % (channel["id"], date.datetime_hyphened)
     text = get_content(url)
-    file_name = get_file_name(channel, date.day)
+    name = channel["name"].lower().replace(" ", "")
+    file_name = get_file_name(name, date.day)
     write_file(file_name, programs)
